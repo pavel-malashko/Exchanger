@@ -1,0 +1,62 @@
+<h3>обменник Exchange!</h3>
+
+<mat-form-field>
+   <input type="number" matInput placeholder="Пополнение кассы" [(ngModel)]="exchangeService.cashSum"/>
+</mat-form-field>
+
+<mat-form-field>
+  <mat-select placeholder="Выберете валюту" [(value)]="exchangeService.cashVal">
+    <mat-option *ngFor="let val of allVal" [value]="val.value" (click)="clearSum()">
+      {{val.value}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-raised-button (click)="exchangeService.SetCash(exchangeService.cashSum,exchangeService.cashVal)">Пополнение кассы</button>
+
+<br>
+
+<mat-grid-list cols="4" rowHeight="35px">
+  <mat-grid-tile
+      *ngFor="let tile of exchangeService.tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+    {{tile.text}}
+  </mat-grid-tile>
+</mat-grid-list>
+
+<br>
+
+<mat-grid-list [style.background]="'skyblue'" cols="1" rowHeight="40px">
+  <mat-grid-tile>
+     <input type="number" matInput placeholder="Курс к валюте" [(ngModel)]="curs"/>
+     <mat-select placeholder="К валюте" [(value)]="walCash">
+       <mat-option *ngFor="let value of exchangeService.dataArr" [value]="value.val" (click)="clearSum()">
+         {{value.val}}
+       </mat-option>
+    </mat-select>
+    <mat-select placeholder="Перевести в" [(value)]="cashVal">
+      <mat-option *ngFor="let val of exchangeService.dataCash" [value]="val.val" (click)="clearSum()">
+        {{val.val}}
+      </mat-option>
+   </mat-select>
+  </mat-grid-tile>
+</mat-grid-list>
+<button mat-raised-button (click)="setRateData(walCash,curs)">Set Rate</button>
+
+<br>
+
+<mat-grid-list cols="3" rowHeight="50px">
+  <mat-grid-tile
+      *ngFor="let tile of exchangeService.frontData"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+    <mat-checkbox *ngIf="tile.text === false || tile.text === true"  [(ngModel)]="tile.text"></mat-checkbox>
+    <div *ngIf="tile.text !== false && tile.text !== true">
+        {{tile.text}}
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+<br>
+<button mat-raised-button (click)="exchangeVal(cashVal)">Transfer checked</button>

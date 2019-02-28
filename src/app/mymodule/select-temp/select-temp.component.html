@@ -1,0 +1,37 @@
+<h3>кошелек Wallet!</h3>
+
+<mat-form-field>
+   <input type="number" matInput placeholder="Введите сумму" [(ngModel)]="sum" />
+</mat-form-field>
+
+<mat-form-field>
+  <mat-select placeholder="Выберете валюту" [(value)]="val">
+    <mat-option *ngFor="let val of allVal" [value]="val.value" (click)="clearSum()">
+      {{val.value}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
+<button mat-raised-button (click)="pushVal(val,sum)">SetVal</button>
+<mat-grid-list cols="4" rowHeight="35px">
+  <mat-grid-tile (change)="walletService.doSomething($event)"
+      *ngFor="let tile of walletService.tiles"
+      [colspan]="tile.cols"
+      [rowspan]="tile.rows"
+      [style.background]="tile.color">
+    {{tile.text}}
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-form-field>
+   <input type="number" matInput placeholder="Сумма для обмена" [(ngModel)]="newSum"/>
+</mat-form-field>
+<mat-form-field>
+  <mat-select placeholder="Выберете валюту" [(value)]="newVal">
+    <mat-option *ngFor="let val of walletService.currency" [value]="val.val" (click)="clearSum()">
+      {{val.val}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<button mat-stroked-button color="primary" (click)="getCur(newVal,newSum)">Transfer</button>
+<div>{{info}}</div>

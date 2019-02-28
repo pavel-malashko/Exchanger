@@ -1,0 +1,21 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu" class="menu">
+  <button mat-stroked-button color="accent" routerLink="/">Главная</button><br>
+  <button mat-stroked-button color="primary" routerLink="/wallet">Выбор клиента</button> <br>
+  <button mat-stroked-button color="accent" routerLink="/exchange">Выбор обменного пункта</button>
+</mat-menu> -->
+
+<mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+      <button mat-button color="accent" routerLink="/">Главная</button><br>
+      <button mat-button color="primary" routerLink="/wallet">Выбор клиента</button> <br>
+      <button mat-button color="accent" routerLink="/exchange">Выбор обменного пункта</button>
+  </mat-drawer>
+
+  <div class="example-sidenav-content">
+    <button mat-icon-button  (click)="drawer.toggle()" class="btn-menu"><mat-icon>list</mat-icon></button>
+    <router-outlet></router-outlet>
+  </div>
+
+</mat-drawer-container>
